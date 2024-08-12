@@ -1,8 +1,9 @@
-
 using DynamicChartsAPI.Application.Interface.Repositories;
 using DynamicChartsAPI.Application.Interface.Services;
 using DynamicChartsAPI.Infrastructure.Repositories;
 using DynamicChartsAPI.Infrastructure.Services;
+using DynamicChartsAPI.Infrastructure.Data;
+using Microsoft.OpenApi.Models;
 
 namespace DynamicChartsAPI
 {
@@ -13,27 +14,50 @@ namespace DynamicChartsAPI
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-
             builder.Services.AddControllers();
+
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+            builder.Services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Dynamic Charts API", Version = "v1" });
+            });
 
+            // Register DapperContext
+            builder.Services.AddSingleton<DapperContext>();
+
+            // Register repositories
             builder.Services.AddScoped<IAdminRepository, AdminRepository>();
+            builder.Services.AddScoped<IChartsRepository, ChartsRepository>();
+
+            // Register services
             builder.Services.AddScoped<IAdminService, AdminService>();
+            builder.Services.AddScoped<IChartsService, ChartsService>();
+
+            // Add CORS policy
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowSpecificOrigin",
+                    builder => builder.WithOrigins("http://localhost:4200") // Replace with your Angular app's URL
+                                      .AllowAnyHeader()
+                                      .AllowAnyMethod());
+            });
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
-                app.UseSwaggerUI();
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Dynamic Charts API v1"));
             }
 
             app.UseHttpsRedirection();
 
-            app.UseAuthorization();
+            // Use CORS policy
+            app.UseCors("AllowSpecificOrigin");
 
+            app.UseAuthorization();
 
             app.MapControllers();
 
