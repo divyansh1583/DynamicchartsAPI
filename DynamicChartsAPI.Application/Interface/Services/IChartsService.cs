@@ -12,9 +12,9 @@ namespace DynamicChartsAPI.Application.Interface.Services
         Task<RevenueDataDTO> GetRevenueDataAsync(string filter);
         Task<MonthlyRevenueDataDTO> GetMonthlyRevenueDataAsync();
         Task<AudienceMetricsDTO> GetAudienceMetricsAsync(string filter);
-        Task<IEnumerable<SessionsByCountryDTO>> GetSessionsByCountriesAsync(string filter);
+        Task<IEnumerable<SessionsByCountriesDTO>> GetSessionsByCountriesAsync(string filter);
         Task<BalanceOverviewDTO> GetBalanceOverviewAsync(int year);
-        Task<IEnumerable<SalesByLocationDTO>> GetSalesByLocationsAsync();
+        Task<IEnumerable<SalesByLocationsDTO>> GetSalesByLocationsAsync();
         Task<IEnumerable<StoreVisitsBySourceDTO>> GetStoreVisitsBySourceAsync();
     }
 }

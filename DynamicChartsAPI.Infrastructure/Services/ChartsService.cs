@@ -18,11 +18,11 @@ namespace DynamicChartsAPI.Infrastructure.Services
             _chartsRepository = chartsRepository;
         }
 
-        public async Task<RevenueDataDto> GetRevenueDataAsync(string filter)
+        public async Task<RevenueDataDTO> GetRevenueDataAsync(string filter)
         {
             var (totalOrders, totalEarnings, totalRefunds, conversionRatio) = await _chartsRepository.GetRevenueDataAsync(filter);
 
-            return new RevenueDataDto
+            return new RevenueDataDTO
             {
                 TotalOrders = totalOrders,
                 TotalEarnings = totalEarnings,
@@ -31,11 +31,11 @@ namespace DynamicChartsAPI.Infrastructure.Services
             };
         }
 
-        public async Task<MonthlyRevenueDataDto> GetMonthlyRevenueDataAsync()
+        public async Task<MonthlyRevenueDataDTO> GetMonthlyRevenueDataAsync()
         {
             var data = await _chartsRepository.GetMonthlyRevenueDataAsync();
 
-            return new MonthlyRevenueDataDto
+            return new MonthlyRevenueDataDTO
             {
                 Months = data.Select(d => d.Month).ToList(),
                 Orders = data.Select(d => d.Orders).ToList(),
@@ -43,27 +43,27 @@ namespace DynamicChartsAPI.Infrastructure.Services
                 Refunds = data.Select(d => d.Refunds).ToList()
             };
         }
-        public async Task<AudienceMetricsDto> GetAudienceMetricsAsync(string filter)
+        public async Task<AudienceMetricsDTO> GetAudienceMetricsAsync(string filter)
         {
             return await _chartsRepository.GetAudienceMetricsAsync(filter);
         }
 
-        public async Task<IEnumerable<SessionsByCountryDto>> GetSessionsByCountriesAsync(string filter)
+        public async Task<IEnumerable<SessionsByCountriesDTO>> GetSessionsByCountriesAsync(string filter)
         {
             return await _chartsRepository.GetSessionsByCountriesAsync(filter);
         }
 
-        public async Task<BalanceOverviewDto> GetBalanceOverviewAsync(int year)
+        public async Task<BalanceOverviewDTO> GetBalanceOverviewAsync(int year)
         {
             return await _chartsRepository.GetBalanceOverviewAsync(year);
         }
 
-        public async Task<IEnumerable<SalesByLocationDto>> GetSalesByLocationsAsync()
+        public async Task<IEnumerable<SalesByLocationsDTO>> GetSalesByLocationsAsync()
         {
             return await _chartsRepository.GetSalesByLocationsAsync();
         }
 
-        public async Task<IEnumerable<StoreVisitsBySourceDto>> GetStoreVisitsBySourceAsync()
+        public async Task<IEnumerable<StoreVisitsBySourceDTO>> GetStoreVisitsBySourceAsync()
         {
             return await _chartsRepository.GetStoreVisitsBySourceAsync();
         }

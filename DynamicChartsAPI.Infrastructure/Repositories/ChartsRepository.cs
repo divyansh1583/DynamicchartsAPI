@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using DynamicChartsAPI.Application.DTO_s;
 using DynamicChartsAPI.Application.Interface.Repositories;
 using DynamicChartsAPI.Infrastructure.Data;
 using System;
@@ -57,38 +58,38 @@ namespace DynamicChartsAPI.Infrastructure.Repositories
             var results = await connection.QueryAsync<(string Month, int Orders, decimal Earnings, int Refunds)>(query);
             return results;
         }
-        public async Task<AudienceMetricsDto> GetAudienceMetricsAsync(string filter)
+        public async Task<AudienceMetricsDTO> GetAudienceMetricsAsync(string filter)
         {
             using var connection = _context.CreateConnection();
-            var result = await connection.QueryFirstOrDefaultAsync<AudienceMetricsDto>("usp_GetAudienceMetrics", new { Filter = filter }, commandType: CommandType.StoredProcedure);
+            var result = await connection.QueryFirstOrDefaultAsync("usp_GetAudienceMetrics", new { Filter = filter }, commandType: CommandType.StoredProcedure);
+            return result.FirstOrDefault();
+        }
+
+        public async Task<IEnumerable<SessionsByCountriesDTO>> GetSessionsByCountriesAsync(string filter)
+        {
+            using var connection = _context.CreateConnection();
+            var result = await connection.QueryAsync<SessionsByCountriesDTO>("usp_GetSessionsByCountries", new { Filter = filter }, commandType: CommandType.StoredProcedure);
             return result;
         }
 
-        public async Task<IEnumerable<SessionsByCountryDto>> GetSessionsByCountriesAsync(string filter)
+        public async Task<BalanceOverviewDTO> GetBalanceOverviewAsync(int year)
         {
             using var connection = _context.CreateConnection();
-            var result = await connection.QueryAsync<SessionsByCountryDto>("usp_GetSessionsByCountries", new { Filter = filter }, commandType: CommandType.StoredProcedure);
+            var result = await connection.QueryFirstOrDefaultAsync<BalanceOverviewDTO>("usp_GetBalanceOverview", new { Year = year }, commandType: CommandType.StoredProcedure);
             return result;
         }
 
-        public async Task<BalanceOverviewDto> GetBalanceOverviewAsync(int year)
+        public async Task<IEnumerable<SalesByLocationsDTO>> GetSalesByLocationsAsync()
         {
             using var connection = _context.CreateConnection();
-            var result = await connection.QueryFirstOrDefaultAsync<BalanceOverviewDto>("usp_GetBalanceOverview", new { Year = year }, commandType: CommandType.StoredProcedure);
+            var result = await connection.QueryAsync<SalesByLocationsDTO>("usp_GetSalesByLocations", commandType: CommandType.StoredProcedure);
             return result;
         }
 
-        public async Task<IEnumerable<SalesByLocationDto>> GetSalesByLocationsAsync()
+        public async Task<IEnumerable<StoreVisitsBySourceDTO>> GetStoreVisitsBySourceAsync()
         {
             using var connection = _context.CreateConnection();
-            var result = await connection.QueryAsync<SalesByLocationDto>("usp_GetSalesByLocations", commandType: CommandType.StoredProcedure);
-            return result;
-        }
-
-        public async Task<IEnumerable<StoreVisitsBySourceDto>> GetStoreVisitsBySourceAsync()
-        {
-            using var connection = _context.CreateConnection();
-            var result = await connection.QueryAsync<StoreVisitsBySourceDto>("usp_GetStoreVisitsBySource", commandType: CommandType.StoredProcedure);
+            var result = await connection.QueryAsync<StoreVisitsBySourceDTO>("usp_GetStoreVisitsBySource", commandType: CommandType.StoredProcedure);
             return result;
         }
     }

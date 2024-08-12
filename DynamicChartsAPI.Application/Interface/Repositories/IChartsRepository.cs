@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DynamicChartsAPI.Application.DTO_s;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,10 +11,10 @@ namespace DynamicChartsAPI.Application.Interface.Repositories
     {
         Task<(int TotalOrders, decimal TotalEarnings, int TotalRefunds, decimal ConversionRatio)> GetRevenueDataAsync(string filter);
         Task<IEnumerable<(string Month, int Orders, decimal Earnings, int Refunds)>> GetMonthlyRevenueDataAsync();
-        Task<AudienceMetricsDto> GetAudienceMetricsAsync(string filter);
-        Task<IEnumerable<SessionsByCountryDto>> GetSessionsByCountriesAsync(string filter);
-        Task<BalanceOverviewDto> GetBalanceOverviewAsync(int year);
-        Task<IEnumerable<SalesByLocationDto>> GetSalesByLocationsAsync();
-        Task<IEnumerable<StoreVisitsBySourceDto>> GetStoreVisitsBySourceAsync();
+        Task<AudienceMetricsDTO> GetAudienceMetricsAsync(string filter);
+        Task<IEnumerable<SessionsByCountriesDTO>> GetSessionsByCountriesAsync(string filter);
+        Task<BalanceOverviewDTO> GetBalanceOverviewAsync(int year);
+        Task<IEnumerable<SalesByLocationsDTO>> GetSalesByLocationsAsync();
+        Task<IEnumerable<StoreVisitsBySourceDTO>> GetStoreVisitsBySourceAsync();
     }
 }
