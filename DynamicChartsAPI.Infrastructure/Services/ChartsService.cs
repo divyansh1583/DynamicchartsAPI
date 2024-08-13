@@ -13,10 +13,10 @@ namespace DynamicChartsAPI.Infrastructure.Services
     {
         private readonly IChartsRepository _chartsRepository;
 
-        public ChartsService(IChartsRepository chartsRepository)
-        {
-            _chartsRepository = chartsRepository;
-        }
+            public ChartsService(IChartsRepository chartsRepository)
+            {
+                _chartsRepository = chartsRepository;
+            }
 
         public async Task<RevenueDataDto> GetRevenueDataAsync(string filter)
         {
@@ -43,6 +43,7 @@ namespace DynamicChartsAPI.Infrastructure.Services
                 Refunds = data.Select(d => d.Refunds).ToList()
             };
         }
+
         public async Task<AudienceMetricsDto> GetAudienceMetricsAsync(string filter)
         {
             return await _chartsRepository.GetAudienceMetricsAsync(filter);

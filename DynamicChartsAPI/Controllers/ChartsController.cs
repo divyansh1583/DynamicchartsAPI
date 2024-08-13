@@ -15,7 +15,6 @@ namespace DynamicChartsAPI.Controllers
         {
             _chartsService = chartsService;
         }
-
         [HttpGet("revenue")]
         public async Task<ActionResult<RevenueDataDto>> GetRevenueData([FromQuery] string filter = "ALL")
         {
@@ -28,6 +27,7 @@ namespace DynamicChartsAPI.Controllers
         {
             var result = await _chartsService.GetMonthlyRevenueDataAsync();
             return Ok(result);
+        } return Ok(result);
         }
         [HttpGet("audience-metrics")]
         public async Task<ActionResult<AudienceMetricsDto>> GetAudienceMetrics([FromQuery] string filter = "ALL")

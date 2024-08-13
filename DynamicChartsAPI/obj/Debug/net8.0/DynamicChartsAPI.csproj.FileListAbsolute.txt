@@ -144,3 +144,14 @@ C:\Users\divyansh.chauhan\Desktop\DC\Angular+.NET+MSSQL\Angular17\DynamicChartsA
 C:\Users\divyansh.chauhan\Desktop\DC\Angular+.NET+MSSQL\Angular17\DynamicChartsApp\DynamicChartsAPI\DynamicChartsAPI\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Users\divyansh.chauhan\Desktop\DC\Angular+.NET+MSSQL\Angular17\DynamicChartsApp\DynamicChartsAPI\DynamicChartsAPI\bin\Debug\net8.0\BCrypt.Net-Next.dll
 C:\Users\divyansh.chauhan\Desktop\DC\Angular+.NET+MSSQL\Angular17\DynamicChartsApp\DynamicChartsAPI\DynamicChartsAPI\bin\Debug\net8.0\Dapper.dll
+D:\Dynamic charts\API\DynamicchartsAPI\DynamicChartsAPI\obj\Debug\net8.0\DynamicChartsAPI.csproj.AssemblyReference.cache
+D:\Dynamic charts\API\DynamicchartsAPI\DynamicChartsAPI\obj\Debug\net8.0\DynamicChartsAPI.GeneratedMSBuildEditorConfig.editorconfig
+D:\Dynamic charts\API\DynamicchartsAPI\DynamicChartsAPI\obj\Debug\net8.0\DynamicChartsAPI.AssemblyInfoInputs.cache
+D:\Dynamic charts\API\DynamicchartsAPI\DynamicChartsAPI\obj\Debug\net8.0\DynamicChartsAPI.AssemblyInfo.cs
+D:\Dynamic charts\API\DynamicchartsAPI\DynamicChartsAPI\obj\Debug\net8.0\DynamicChartsAPI.csproj.CoreCompileInputs.cache
+D:\Dynamic charts\API\DynamicchartsAPI\DynamicChartsAPI\obj\Debug\net8.0\DynamicChartsAPI.MvcApplicationPartsAssemblyInfo.cs
+D:\Dynamic charts\API\DynamicchartsAPI\DynamicChartsAPI\obj\Debug\net8.0\DynamicChartsAPI.MvcApplicationPartsAssemblyInfo.cache
+D:\Dynamic charts\API\DynamicchartsAPI\DynamicChartsAPI\obj\Debug\net8.0\DynamicChartsAPI.sourcelink.json
+D:\Dynamic charts\API\DynamicchartsAPI\DynamicChartsAPI\obj\Debug\net8.0\DynamicChartsAPI.dll
+D:\Dynamic charts\API\DynamicchartsAPI\DynamicChartsAPI\obj\Debug\net8.0\refint\DynamicChartsAPI.dll
+D:\Dynamic charts\API\DynamicchartsAPI\DynamicChartsAPI\obj\Debug\net8.0\DynamicChartsAPI.pdb

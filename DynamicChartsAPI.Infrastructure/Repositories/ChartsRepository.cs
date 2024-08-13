@@ -38,25 +38,26 @@ namespace DynamicChartsAPI.Infrastructure.Repositories
             using var connection = _context.CreateConnection();
 
             var query = @"
-                SELECT 
-                    DATENAME(MONTH, o.OrderDate) AS Month,
-                    COUNT(DISTINCT o.OrderID) AS Orders,
-                    SUM(p.SellingPrice * o.Quantity) AS Earnings,
-                    COUNT(DISTINCT r.RefundID) AS Refunds
-                FROM 
-                    DCP_Order o
-                    JOIN DCP_Product p ON o.ProductID = p.ProductID
-                    LEFT JOIN DCP_Refund r ON o.OrderID = r.OrderID
-                WHERE 
-                    o.OrderDate >= DATEADD(YEAR, -1, GETDATE())
-                GROUP BY 
-                    DATENAME(MONTH, o.OrderDate), MONTH(o.OrderDate)
-                ORDER BY 
-                    MONTH(o.OrderDate)";
+        SELECT 
+            DATENAME(MONTH, o.OrderDate) AS Month,
+            COUNT(DISTINCT o.OrderID) AS Orders,
+            SUM(p.SellingPrice * o.Quantity) AS Earnings,
+            COUNT(DISTINCT r.RefundID) AS Refunds
+        FROM 
+            DCP_Order o
+            JOIN DCP_Product p ON o.ProductID = p.ProductID
+            LEFT JOIN DCP_Refund r ON o.OrderID = r.OrderID
+        WHERE 
+            o.OrderDate >= DATEADD(YEAR, -1, GETDATE())
+        GROUP BY 
+            DATENAME(MONTH, o.OrderDate), MONTH(o.OrderDate)
+        ORDER BY 
+            MONTH(o.OrderDate)";
 
             var results = await connection.QueryAsync<(string Month, int Orders, decimal Earnings, int Refunds)>(query);
             return results;
         }
+
         public async Task<AudienceMetricsDto> GetAudienceMetricsAsync(string filter)
         {
             using var connection = _context.CreateConnection();

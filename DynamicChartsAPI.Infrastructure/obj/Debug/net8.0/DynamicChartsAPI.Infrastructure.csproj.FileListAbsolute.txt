@@ -16,3 +16,12 @@ C:\Users\divyansh.chauhan\Desktop\DC\Angular+.NET+MSSQL\Angular17\DynamicChartsA
 C:\Users\divyansh.chauhan\Desktop\DC\Angular+.NET+MSSQL\Angular17\DynamicChartsApp\DynamicChartsAPI\DynamicChartsAPI.Infrastructure\obj\Debug\net8.0\refint\DynamicChartsAPI.Infrastructure.dll
 C:\Users\divyansh.chauhan\Desktop\DC\Angular+.NET+MSSQL\Angular17\DynamicChartsApp\DynamicChartsAPI\DynamicChartsAPI.Infrastructure\obj\Debug\net8.0\DynamicChartsAPI.Infrastructure.pdb
 C:\Users\divyansh.chauhan\Desktop\DC\Angular+.NET+MSSQL\Angular17\DynamicChartsApp\DynamicChartsAPI\DynamicChartsAPI.Infrastructure\obj\Debug\net8.0\ref\DynamicChartsAPI.Infrastructure.dll
+D:\Dynamic charts\API\DynamicchartsAPI\DynamicChartsAPI.Infrastructure\obj\Debug\net8.0\DynamicChartsAPI.Infrastructure.csproj.AssemblyReference.cache
+D:\Dynamic charts\API\DynamicchartsAPI\DynamicChartsAPI.Infrastructure\obj\Debug\net8.0\DynamicChartsAPI.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+D:\Dynamic charts\API\DynamicchartsAPI\DynamicChartsAPI.Infrastructure\obj\Debug\net8.0\DynamicChartsAPI.Infrastructure.AssemblyInfoInputs.cache
+D:\Dynamic charts\API\DynamicchartsAPI\DynamicChartsAPI.Infrastructure\obj\Debug\net8.0\DynamicChartsAPI.Infrastructure.AssemblyInfo.cs
+D:\Dynamic charts\API\DynamicchartsAPI\DynamicChartsAPI.Infrastructure\obj\Debug\net8.0\DynamicChartsAPI.Infrastructure.csproj.CoreCompileInputs.cache
+D:\Dynamic charts\API\DynamicchartsAPI\DynamicChartsAPI.Infrastructure\obj\Debug\net8.0\DynamicChartsAPI.Infrastructure.sourcelink.json
+D:\Dynamic charts\API\DynamicchartsAPI\DynamicChartsAPI.Infrastructure\obj\Debug\net8.0\DynamicChartsAPI.Infrastructure.dll
+D:\Dynamic charts\API\DynamicchartsAPI\DynamicChartsAPI.Infrastructure\obj\Debug\net8.0\refint\DynamicChartsAPI.Infrastructure.dll
+D:\Dynamic charts\API\DynamicchartsAPI\DynamicChartsAPI.Infrastructure\obj\Debug\net8.0\DynamicChartsAPI.Infrastructure.pdb
