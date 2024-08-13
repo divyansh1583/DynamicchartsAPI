@@ -33,6 +33,10 @@ namespace DynamicChartsAPI.Controllers
         public async Task<ActionResult<AudienceMetricsDTO>> GetAudienceMetrics([FromQuery] string filter = "ALL")
         {
             var result = await _chartsService.GetAudienceMetricsAsync(filter);
+            if (result == null)
+            {
+                return NotFound("No audience metrics data found.");
+            }
             return Ok(result);
         }
 
@@ -47,6 +51,10 @@ namespace DynamicChartsAPI.Controllers
         public async Task<ActionResult<BalanceOverviewDTO>> GetBalanceOverview([FromQuery] int year)
         {
             var result = await _chartsService.GetBalanceOverviewAsync(year);
+            if (result == null)
+            {
+                return NotFound($"No balance overview data found for year {year}.");
+            }
             return Ok(result);
         }
 

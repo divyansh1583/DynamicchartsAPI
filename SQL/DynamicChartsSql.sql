@@ -117,23 +117,24 @@
         SET @i = @i + 1;
     END;
 
-    -- Insert Data into DCP_Session
-    DECLARE @j INT = 1;
 
-    WHILE @j <= 300
-    BEGIN
-        INSERT INTO DCP_Session (SessionID, CountryID, StartDate, EndDate, SessionCreateDate, CreateDate, IsDeleted)
-        VALUES (
-            @j,
-            (SELECT TOP 1 CountryID FROM DCP_Country ORDER BY NEWID()),  -- Random CountryID
-            DATEADD(DAY, -ABS(CHECKSUM(NEWID()) % 365), GETDATE()),  -- Random past start date within the last year
-            DATEADD(DAY, ABS(CHECKSUM(NEWID()) % 30), DATEADD(DAY, -ABS(CHECKSUM(NEWID()) % 365), GETDATE())),  -- Random past end date within 30 days of the start date
-            GETDATE(),  -- Session creation date
-            GETDATE(),  -- Creation date
-            0  -- IsDeleted
-        );
-        SET @j = @j + 1;
-    END;
+	-- Insert Data into DCP_Session
+	DECLARE @j INT = 1;
+	WHILE @j <= 300
+	BEGIN
+	    DECLARE @StartDate DATETIME = DATEADD(DAY, -ABS(CHECKSUM(NEWID()) % 365), GETDATE());
+	    INSERT INTO DCP_Session (SessionID, CountryID, StartDate, EndDate, SessionCreateDate, CreateDate, IsDeleted)
+	    VALUES (
+	        @j,
+	        (SELECT TOP 1 CountryID FROM DCP_Country ORDER BY NEWID()),  -- Random CountryID
+	        @StartDate,  -- Random past start date within the last year
+	        DATEADD(MINUTE, ABS(CHECKSUM(NEWID()) % 120), @StartDate),  -- Random end date within 2 hours of start date
+	        GETDATE(),  -- Session creation date
+	        GETDATE(),  -- Creation date
+	        0  -- IsDeleted
+	    );
+	    SET @j = @j + 1;
+	END;
 
     -- Insert Data into DCP_Refund
     DECLARE @k INT = 1;
@@ -299,127 +300,168 @@
 
     EXEC usp_GetTotalRefund 'Year';
     ------------------------------------------------------------------------------------------------------------------------------------------------
-	------------------------------------------------------------------------
-	----------------------------
+    ---------------
 	use sDirect
 	-- Audiences Metrics
--- Audiences Metrics
-CREATE OR ALTER PROCEDURE usp_GetAudienceMetrics
+	-- Audiences Metrics
+	CREATE OR ALTER PROCEDURE usp_GetAudienceMetrics
     @Filter NVARCHAR(10)
-AS
-BEGIN
-    DECLARE @StartDate DATE = CASE 
-        WHEN @Filter = '1M' THEN DATEADD(MONTH, -1, GETDATE())
-        WHEN @Filter = '6M' THEN DATEADD(MONTH, -6, GETDATE())
-        WHEN @Filter = '1Y' THEN DATEADD(YEAR, -1, GETDATE())
-        ELSE DATEADD(YEAR, -10, GETDATE()) -- For 'ALL'
-    END
-
-    ---- Placeholder values, replace with actual calculations from your data
-    --SELECT 
-    --    854 AS Avg_Session,
-    --    1278 AS Conversion_Rate,
-    --    200 AS Avg_Session_Duration_Seconds,
-    --    40 AS Avg_Session_Increase_Percentage,
-    --    60 AS Conversion_Rate_Increase_Percentage,
-    --    37 AS Avg_Session_Duration_Increase_Percentage
-
-    -- Monthly data for chart	
-    SELECT 
-        MONTH(s.StartDate) AS Month,
-        AVG(DATEDIFF(SECOND, s.StartDate, s.EndDate)) AS Sessions,
-        YEAR(s.StartDate) AS Year
-    FROM DCP_Session s
-    WHERE s.StartDate >= @StartDate
-    GROUP BY YEAR(s.StartDate), MONTH(s.StartDate)
-    ORDER BY YEAR(s.StartDate), MONTH(s.StartDate)
-END
-
-EXEC usp_GetAudienceMetrics '6M'
-
--- Sessions by Countries
-CREATE OR ALTER PROCEDURE usp_GetSessionsByCountries
-    @Filter NVARCHAR(10)
-AS
-BEGIN
-    DECLARE @StartDate DATE = CASE 
-        WHEN @Filter = '1M' THEN DATEADD(MONTH, -1, GETDATE())
-        WHEN @Filter = '6M' THEN DATEADD(MONTH, -6, GETDATE())
-        ELSE DATEADD(YEAR, -10, GETDATE()) -- For 'ALL'
-    END
-
-    SELECT TOP 10
-        c.CountryName,
-        COUNT(s.SessionID) AS Sessions
-    FROM DCP_Session s
-    JOIN DCP_Country c ON s.CountryID = c.CountryID
-    WHERE s.StartDate >= @StartDate
-    GROUP BY c.CountryName
-    ORDER BY Sessions DESC
-END
-
-EXEC usp_GetSessionsByCountries '6M'
-
--- Balance Overview
-CREATE OR ALTER PROCEDURE usp_GetBalanceOverview
-    @Year INT
-AS
-BEGIN
-    DECLARE @TotalRevenue DECIMAL(18,2)
-    DECLARE @TotalExpenses DECIMAL(18,2)
-
-    SELECT 
-        @TotalRevenue = SUM(o.Quantity * p.SellingPrice),
-        @TotalExpenses = SUM(o.Quantity * p.CostPrice)
-    FROM DCP_Order o
-    JOIN DCP_Product p ON o.ProductID = p.ProductID
-    WHERE YEAR(o.OrderDate) = @Year
-
-    SELECT 
-        @TotalRevenue AS Revenue,
-        @TotalExpenses AS Expenses,
-        (@TotalRevenue - @TotalExpenses) / @TotalRevenue * 100 AS ProfitRatio
-
-    -- Monthly data for chart
-    SELECT 
-        MONTH(o.OrderDate) AS Month,
-        SUM(o.Quantity * p.SellingPrice) AS Revenue,
-        SUM(o.Quantity * p.CostPrice) AS Expenses
-    FROM DCP_Order o
-    JOIN DCP_Product p ON o.ProductID = p.ProductID
-    WHERE YEAR(o.OrderDate) = @Year
-    GROUP BY MONTH(o.OrderDate)
-    ORDER BY MONTH(o.OrderDate)
-END
-
-EXEC usp_GetBalanceOverview 2024
-
--- Sales by Locations
-CREATE OR ALTER PROCEDURE usp_GetSalesByLocations
-AS
-BEGIN
-    SELECT TOP 5
-        c.CountryName,
-        SUM(o.Quantity * p.SellingPrice) * 100.0 / (SELECT SUM(Quantity * SellingPrice) FROM DCP_Order o JOIN DCP_Product p ON o.ProductID = p.ProductID) AS SalesPercentage
-    FROM DCP_Order o
-    JOIN DCP_Product p ON o.ProductID = p.ProductID
-    JOIN DCP_Country c ON o.CountryID = c.CountryID
-    GROUP BY c.CountryName
-    ORDER BY SalesPercentage DESC
-END
-
-EXEC usp_GetSalesByLocations
-
--- Store Visits by Source
-CREATE OR ALTER PROCEDURE usp_GetStoreVisitsBySource
-AS
-BEGIN
-    SELECT 
-        s.SourceType,
-        COUNT(o.OrderID) * 100.0 / (SELECT COUNT(*) FROM DCP_Order) AS Percentage
-    FROM DCP_Order o
-    JOIN DCP_Source s ON o.SourceID = s.SourceID
-    GROUP BY s.SourceType
-END
-
-EXEC usp_GetStoreVisitsBySource
+	AS
+	BEGIN
+	    DECLARE @StartDate DATE = CASE 
+	        WHEN @Filter = '1M' THEN DATEADD(MONTH, -1, GETDATE())
+	        WHEN @Filter = '6M' THEN DATEADD(MONTH, -6, GETDATE())
+	        WHEN @Filter = '1Y' THEN DATEADD(YEAR, -1, GETDATE())
+	        ELSE DATEADD(YEAR, -10, GETDATE()) -- For 'ALL'
+	    END;
+	
+	    DECLARE @PreviousStartDate DATE = DATEADD(DAY, DATEDIFF(DAY, @StartDate, GETDATE()), DATEADD(DAY, -1, @StartDate));
+	
+	    -- Calculate metrics
+	    DECLARE @AvgSession DECIMAL(10,2),
+	            @ConversionRate DECIMAL(5,2),
+	            @AvgSessionDuration INT,
+	            @PrevAvgSession DECIMAL(10,2),
+	            @PrevConversionRate DECIMAL(5,2),
+	            @PrevAvgSessionDuration INT;
+	
+	    -- Current period metrics
+	    SELECT @AvgSession = CAST(COUNT(*) AS DECIMAL(10,2)) / NULLIF(COUNT(DISTINCT CAST(StartDate AS DATE)), 0),
+	           @AvgSessionDuration = AVG(DATEDIFF(SECOND, StartDate, EndDate))
+	    FROM DCP_Session
+	    WHERE StartDate >= @StartDate;
+	
+	    SELECT @ConversionRate = (COUNT(*) * 100.0) / NULLIF((SELECT COUNT(*) FROM DCP_Session WHERE StartDate >= @StartDate), 0)
+	    FROM DCP_Order
+	    WHERE OrderDate >= @StartDate;
+	
+	    -- Previous period metrics
+	    SELECT @PrevAvgSession = CAST(COUNT(*) AS DECIMAL(10,2)) / NULLIF(COUNT(DISTINCT CAST(StartDate AS DATE)), 0),
+	           @PrevAvgSessionDuration = AVG(DATEDIFF(SECOND, StartDate, EndDate))
+	    FROM DCP_Session
+	    WHERE StartDate >= @PreviousStartDate AND StartDate < @StartDate;
+	
+	    SELECT @PrevConversionRate = (COUNT(*) * 100.0) / NULLIF((SELECT COUNT(*) FROM DCP_Session WHERE StartDate >= @PreviousStartDate AND StartDate < @StartDate), 0)
+	    FROM DCP_Order
+	    WHERE OrderDate >= @PreviousStartDate AND OrderDate < @StartDate;
+	
+	    -- Calculate percentage increases
+	    DECLARE @AvgSessionIncrease DECIMAL(5,2),
+	            @ConversionRateIncrease DECIMAL(5,2),
+	            @AvgSessionDurationIncrease DECIMAL(5,2);
+	
+	    SET @AvgSessionIncrease = CASE WHEN @PrevAvgSession = 0 THEN 100 ELSE ((@AvgSession - @PrevAvgSession) * 100.0) / @PrevAvgSession END;
+	    SET @ConversionRateIncrease = CASE WHEN @PrevConversionRate = 0 THEN 100 ELSE ((@ConversionRate - @PrevConversionRate) * 100.0) / @PrevConversionRate END;
+	    SET @AvgSessionDurationIncrease = CASE WHEN @PrevAvgSessionDuration = 0 THEN 100 ELSE ((@AvgSessionDuration - @PrevAvgSessionDuration) * 100.0) / @PrevAvgSessionDuration END;
+	
+	    -- Return the results
+	    SELECT 
+	        ISNULL(@AvgSession, 0) AS Avg_Session,
+	        ISNULL(@ConversionRate, 0) AS Conversion_Rate,
+	        ISNULL(@AvgSessionDuration, 0) AS Avg_Session_Duration_Seconds,
+	        ISNULL(@AvgSessionIncrease, 0) AS Avg_Session_Increase_Percentage,
+	        ISNULL(@ConversionRateIncrease, 0) AS Conversion_Rate_Increase_Percentage,
+	        ISNULL(@AvgSessionDurationIncrease, 0) AS Avg_Session_Duration_Increase_Percentage;
+	
+	    -- Monthly data for chart    
+	    SELECT 
+	        MONTH(s.StartDate) AS Month,
+	        COUNT(*) AS Sessions,
+	        YEAR(s.StartDate) AS Year
+	    FROM DCP_Session s
+	    WHERE s.StartDate >= @StartDate
+	    GROUP BY YEAR(s.StartDate), MONTH(s.StartDate)
+	    ORDER BY YEAR(s.StartDate), MONTH(s.StartDate);
+	END;
+	
+	EXEC usp_GetAudienceMetrics '1M'
+	
+	-- Sessions by Countries
+	CREATE OR ALTER PROCEDURE usp_GetSessionsByCountries
+	    @Filter NVARCHAR(10)
+	AS
+	BEGIN
+	    DECLARE @StartDate DATE = CASE 
+	        WHEN @Filter = '1M' THEN DATEADD(MONTH, -1, GETDATE())
+	        WHEN @Filter = '6M' THEN DATEADD(MONTH, -6, GETDATE())
+	        ELSE DATEADD(YEAR, -10, GETDATE()) -- For 'ALL'
+	    END
+	
+	    SELECT TOP 10
+	        c.CountryName,
+	        COUNT(s.SessionID) AS Sessions
+	    FROM DCP_Session s
+	    JOIN DCP_Country c ON s.CountryID = c.CountryID
+	    WHERE s.StartDate >= @StartDate
+	    GROUP BY c.CountryName
+	    ORDER BY Sessions DESC
+	END
+	
+	EXEC usp_GetSessionsByCountries '1M'
+	
+	-- Balance Overview
+	CREATE OR ALTER PROCEDURE usp_GetBalanceOverview
+	    @Year INT
+	AS
+	BEGIN
+	    DECLARE @TotalRevenue DECIMAL(18,2)
+	    DECLARE @TotalExpenses DECIMAL(18,2)
+	
+	    SELECT 
+	        @TotalRevenue = SUM(o.Quantity * p.SellingPrice),
+	        @TotalExpenses = SUM(o.Quantity * p.CostPrice)
+	    FROM DCP_Order o
+	    JOIN DCP_Product p ON o.ProductID = p.ProductID
+	    WHERE YEAR(o.OrderDate) = @Year
+	
+	    SELECT 
+	        @TotalRevenue AS Revenue,
+	        @TotalExpenses AS Expenses,
+	        CASE 
+	            WHEN @TotalRevenue = 0 THEN 0
+	            ELSE (@TotalRevenue - @TotalExpenses) / @TotalRevenue * 100 
+	        END AS ProfitRatio
+	
+	    -- Monthly data for chart
+	    SELECT 
+	        MONTH(o.OrderDate) AS Month,
+	        SUM(o.Quantity * p.SellingPrice) AS Revenue,
+	        SUM(o.Quantity * p.CostPrice) AS Expenses
+	    FROM DCP_Order o
+	    JOIN DCP_Product p ON o.ProductID = p.ProductID
+	    WHERE YEAR(o.OrderDate) = @Year
+	    GROUP BY MONTH(o.OrderDate)
+	    ORDER BY MONTH(o.OrderDate)
+	END
+	
+	EXEC usp_GetBalanceOverview 2024
+	
+	-- Sales by Locations
+	CREATE OR ALTER PROCEDURE usp_GetSalesByLocations
+	AS
+	BEGIN
+	    SELECT TOP 5
+	        c.CountryName,
+	        SUM(o.Quantity * p.SellingPrice) * 100.0 / (SELECT SUM(Quantity * SellingPrice) FROM DCP_Order o JOIN DCP_Product p ON o.ProductID = p.ProductID) AS SalesPercentage
+	    FROM DCP_Order o
+	    JOIN DCP_Product p ON o.ProductID = p.ProductID
+	    JOIN DCP_Country c ON o.CountryID = c.CountryID
+	    GROUP BY c.CountryName
+	    ORDER BY SalesPercentage DESC
+	END
+	
+	EXEC usp_GetSalesByLocations
+	
+	-- Store Visits by Source
+	CREATE OR ALTER PROCEDURE usp_GetStoreVisitsBySource
+	AS
+	BEGIN
+	    SELECT 
+	        s.SourceType,
+	        COUNT(o.OrderID) * 100.0 / (SELECT COUNT(*) FROM DCP_Order) AS Percentage
+	    FROM DCP_Order o
+	    JOIN DCP_Source s ON o.SourceID = s.SourceID
+	    GROUP BY s.SourceType
+	END
+	
+	EXEC usp_GetStoreVisitsBySource

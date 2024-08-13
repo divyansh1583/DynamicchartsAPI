@@ -23,12 +23,20 @@ namespace DynamicChartsAPI.Application.DTO_s
 
     public class AudienceMetricsDTO
     {
-        public int AvgSession { get; set; }
-        public decimal ConversionRate { get; set; }
-        public int AvgSessionDurationSeconds { get; set; }
-        public int AvgSessionIncreasePercentage { get; set; }
-        public int ConversionRateIncreasePercentage { get; set; }
-        public int AvgSessionDurationIncreasePercentage { get; set; }
+        public int Avg_Session { get; set; }
+        public decimal Conversion_Rate { get; set; }
+        public int Avg_Session_Duration_Seconds { get; set; }
+        public decimal Avg_Session_Increase_Percentage { get; set; }
+        public decimal Conversion_Rate_Increase_Percentage { get; set; }
+        public decimal Avg_Session_Duration_Increase_Percentage { get; set; }
+        public List<MonthlySessionData> MonthlyData { get; set; }
+    }
+
+    public class MonthlySessionData
+    {
+        public int Month { get; set; }
+        public int Sessions { get; set; }
+        public int Year { get; set; }
     }
 
     public class SessionsByCountriesDTO
@@ -42,6 +50,14 @@ namespace DynamicChartsAPI.Application.DTO_s
         public decimal Revenue { get; set; }
         public decimal Expenses { get; set; }
         public decimal ProfitRatio { get; set; }
+        public List<MonthlyBalanceData> MonthlyData { get; set; }
+    }
+
+    public class MonthlyBalanceData
+    {
+        public int Month { get; set; }
+        public decimal Revenue { get; set; }
+        public decimal Expenses { get; set; }
     }
 
     public class SalesByLocationsDTO

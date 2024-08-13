@@ -61,8 +61,14 @@ namespace DynamicChartsAPI.Infrastructure.Repositories
         public async Task<AudienceMetricsDTO> GetAudienceMetricsAsync(string filter)
         {
             using var connection = _context.CreateConnection();
-            var result = await connection.QueryFirstOrDefaultAsync("usp_GetAudienceMetrics", new { Filter = filter }, commandType: CommandType.StoredProcedure);
-            return result.FirstOrDefault();
+            var result = await connection.QueryMultipleAsync("usp_GetAudienceMetrics", new { Filter = filter }, commandType: CommandType.StoredProcedure);
+
+            var metrics = result.ReadFirstOrDefault<AudienceMetricsDTO>();
+            if (metrics != null)
+            {
+                metrics.MonthlyData = result.Read<MonthlySessionData>().ToList();
+            }
+            return metrics;
         }
 
         public async Task<IEnumerable<SessionsByCountriesDTO>> GetSessionsByCountriesAsync(string filter)
@@ -75,8 +81,14 @@ namespace DynamicChartsAPI.Infrastructure.Repositories
         public async Task<BalanceOverviewDTO> GetBalanceOverviewAsync(int year)
         {
             using var connection = _context.CreateConnection();
-            var result = await connection.QueryFirstOrDefaultAsync<BalanceOverviewDTO>("usp_GetBalanceOverview", new { Year = year }, commandType: CommandType.StoredProcedure);
-            return result;
+            var result = await connection.QueryMultipleAsync("usp_GetBalanceOverview", new { Year = year }, commandType: CommandType.StoredProcedure);
+
+            var overview = result.ReadFirstOrDefault<BalanceOverviewDTO>();
+            if (overview != null)
+            {
+                overview.MonthlyData = result.Read<MonthlyBalanceData>().ToList();
+            }
+            return overview;
         }
 
         public async Task<IEnumerable<SalesByLocationsDTO>> GetSalesByLocationsAsync()
