@@ -13,3 +13,18 @@ C:\Users\divyansh.chauhan\Desktop\DC\Angular+.NET+MSSQL\Angular17\DynamicChartsA
 C:\Users\divyansh.chauhan\Desktop\DC\Angular+.NET+MSSQL\Angular17\DynamicChartsApp\DynamicChartsAPI\DynamicChartsAPI.Domain\obj\Debug\net8.0\DynamicChartsAPI.Domain.pdb
 C:\Users\divyansh.chauhan\Desktop\DC\Angular+.NET+MSSQL\Angular17\DynamicChartsApp\DynamicChartsAPI\DynamicChartsAPI.Domain\obj\Debug\net8.0\DynamicChartsAPI.Domain.genruntimeconfig.cache
 C:\Users\divyansh.chauhan\Desktop\DC\Angular+.NET+MSSQL\Angular17\DynamicChartsApp\DynamicChartsAPI\DynamicChartsAPI.Domain\obj\Debug\net8.0\ref\DynamicChartsAPI.Domain.dll
+D:\Dynamic charts\API\DynamicchartsAPI\DynamicChartsAPI.Domain\bin\Debug\net8.0\DynamicChartsAPI.Domain.deps.json
+D:\Dynamic charts\API\DynamicchartsAPI\DynamicChartsAPI.Domain\bin\Debug\net8.0\DynamicChartsAPI.Domain.runtimeconfig.json
+D:\Dynamic charts\API\DynamicchartsAPI\DynamicChartsAPI.Domain\bin\Debug\net8.0\DynamicChartsAPI.Domain.dll
+D:\Dynamic charts\API\DynamicchartsAPI\DynamicChartsAPI.Domain\bin\Debug\net8.0\DynamicChartsAPI.Domain.pdb
+D:\Dynamic charts\API\DynamicchartsAPI\DynamicChartsAPI.Domain\obj\Debug\net8.0\DynamicChartsAPI.Domain.csproj.AssemblyReference.cache
+D:\Dynamic charts\API\DynamicchartsAPI\DynamicChartsAPI.Domain\obj\Debug\net8.0\DynamicChartsAPI.Domain.GeneratedMSBuildEditorConfig.editorconfig
+D:\Dynamic charts\API\DynamicchartsAPI\DynamicChartsAPI.Domain\obj\Debug\net8.0\DynamicChartsAPI.Domain.AssemblyInfoInputs.cache
+D:\Dynamic charts\API\DynamicchartsAPI\DynamicChartsAPI.Domain\obj\Debug\net8.0\DynamicChartsAPI.Domain.AssemblyInfo.cs
+D:\Dynamic charts\API\DynamicchartsAPI\DynamicChartsAPI.Domain\obj\Debug\net8.0\DynamicChartsAPI.Domain.csproj.CoreCompileInputs.cache
+D:\Dynamic charts\API\DynamicchartsAPI\DynamicChartsAPI.Domain\obj\Debug\net8.0\DynamicChartsAPI.Domain.sourcelink.json
+D:\Dynamic charts\API\DynamicchartsAPI\DynamicChartsAPI.Domain\obj\Debug\net8.0\DynamicChartsAPI.Domain.dll
+D:\Dynamic charts\API\DynamicchartsAPI\DynamicChartsAPI.Domain\obj\Debug\net8.0\refint\DynamicChartsAPI.Domain.dll
+D:\Dynamic charts\API\DynamicchartsAPI\DynamicChartsAPI.Domain\obj\Debug\net8.0\DynamicChartsAPI.Domain.pdb
+D:\Dynamic charts\API\DynamicchartsAPI\DynamicChartsAPI.Domain\obj\Debug\net8.0\DynamicChartsAPI.Domain.genruntimeconfig.cache
+D:\Dynamic charts\API\DynamicchartsAPI\DynamicChartsAPI.Domain\obj\Debug\net8.0\ref\DynamicChartsAPI.Domain.dll
