@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("DynamicChartsAPI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e7063d484cd1d78f05dea138168c146d71c2aece")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1bcd308ce4856213330952992a4929aa3d6c415e")]
 [assembly: System.Reflection.AssemblyProductAttribute("DynamicChartsAPI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("DynamicChartsAPI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
