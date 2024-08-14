@@ -53,9 +53,10 @@ namespace DynamicChartsAPI.Application.DTO_s
         public List<MonthlyBalanceData> MonthlyData { get; set; }
     }
 
+
     public class MonthlyBalanceData
     {
-        public int Month { get; set; }
+        public string MonthName { get; set; }
         public decimal Revenue { get; set; }
         public decimal Expenses { get; set; }
     }
