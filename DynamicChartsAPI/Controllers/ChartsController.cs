@@ -58,6 +58,7 @@ namespace DynamicChartsAPI.Controllers
             return Ok(result);
         }
 
+
         [HttpGet("sales-by-locations")]
         public async Task<ActionResult<IEnumerable<SalesByLocationsDTO>>> GetSalesByLocations()
         {
