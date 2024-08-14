@@ -37,10 +37,11 @@ namespace DynamicChartsAPI
             // Add CORS policy
             builder.Services.AddCors(options =>
             {
-                options.AddPolicy("AllowSpecificOrigin",
-                    builder => builder.WithOrigins("http://localhost:4200") // Replace with your Angular app's URL
-                                      .AllowAnyHeader()
-                                      .AllowAnyMethod());
+                options.AddPolicy("AllowAnyOrigin",
+                    builder => builder
+                        .AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader());
             });
 
             var app = builder.Build();
@@ -55,7 +56,7 @@ namespace DynamicChartsAPI
             app.UseHttpsRedirection();
 
             // Use CORS policy
-            app.UseCors("AllowSpecificOrigin");
+            app.UseCors("AllowAnyOrigin");
 
             app.UseAuthorization();
 
