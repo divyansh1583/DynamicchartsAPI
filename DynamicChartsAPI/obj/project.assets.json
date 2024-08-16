@@ -4618,23 +4618,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\gagandeep.singh\\.nuget\\packages\\": {},
+    "C:\\Users\\divyansh.chauhan\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Dynamic charts\\API\\DynamicchartsAPI\\DynamicChartsAPI\\DynamicChartsAPI.csproj",
+      "projectUniqueName": "C:\\Users\\divyansh.chauhan\\Desktop\\DC\\Angular+.NET+MSSQL\\Angular17\\DynamicChartsApp\\DynamicchartsAPI\\DynamicChartsAPI\\DynamicChartsAPI.csproj",
       "projectName": "DynamicChartsAPI",
-      "projectPath": "D:\\Dynamic charts\\API\\DynamicchartsAPI\\DynamicChartsAPI\\DynamicChartsAPI.csproj",
-      "packagesPath": "C:\\Users\\gagandeep.singh\\.nuget\\packages\\",
-      "outputPath": "D:\\Dynamic charts\\API\\DynamicchartsAPI\\DynamicChartsAPI\\obj\\",
+      "projectPath": "C:\\Users\\divyansh.chauhan\\Desktop\\DC\\Angular+.NET+MSSQL\\Angular17\\DynamicChartsApp\\DynamicchartsAPI\\DynamicChartsAPI\\DynamicChartsAPI.csproj",
+      "packagesPath": "C:\\Users\\divyansh.chauhan\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\divyansh.chauhan\\Desktop\\DC\\Angular+.NET+MSSQL\\Angular17\\DynamicChartsApp\\DynamicchartsAPI\\DynamicChartsAPI\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\gagandeep.singh\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\divyansh.chauhan\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -4650,8 +4650,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "D:\\Dynamic charts\\API\\DynamicchartsAPI\\DynamicChartsAPI.Infrastructure\\DynamicChartsAPI.Infrastructure.csproj": {
-              "projectPath": "D:\\Dynamic charts\\API\\DynamicchartsAPI\\DynamicChartsAPI.Infrastructure\\DynamicChartsAPI.Infrastructure.csproj"
+            "C:\\Users\\divyansh.chauhan\\Desktop\\DC\\Angular+.NET+MSSQL\\Angular17\\DynamicChartsApp\\DynamicchartsAPI\\DynamicChartsAPI.Infrastructure\\DynamicChartsAPI.Infrastructure.csproj": {
+              "projectPath": "C:\\Users\\divyansh.chauhan\\Desktop\\DC\\Angular+.NET+MSSQL\\Angular17\\DynamicChartsApp\\DynamicchartsAPI\\DynamicChartsAPI.Infrastructure\\DynamicChartsAPI.Infrastructure.csproj"
             }
           }
         }
@@ -4701,7 +4701,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.302/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.300/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

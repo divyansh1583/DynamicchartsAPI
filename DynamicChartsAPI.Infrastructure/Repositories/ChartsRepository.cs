@@ -2,12 +2,7 @@
 using DynamicChartsAPI.Application.DTO_s;
 using DynamicChartsAPI.Application.Interface.Repositories;
 using DynamicChartsAPI.Infrastructure.Data;
-using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DynamicChartsAPI.Infrastructure.Repositories
 {
@@ -58,6 +53,7 @@ namespace DynamicChartsAPI.Infrastructure.Repositories
             var results = await connection.QueryAsync<(string Month, int Orders, decimal Earnings, int Refunds)>(query);
             return results;
         }
+
         public async Task<AudienceMetricsDTO> GetAudienceMetricsAsync(string filter)
         {
             using var connection = _context.CreateConnection();

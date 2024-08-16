@@ -1,4 +1,5 @@
 ﻿using DynamicChartsAPI.Application.DTO_s;
+using DynamicChartsAPI.Domain.CommonModal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,12 +10,12 @@ namespace DynamicChartsAPI.Application.Interface.Services
 {
     public interface IChartsService
     {
-        Task<RevenueDataDTO> GetRevenueDataAsync(string filter);
-        Task<MonthlyRevenueDataDTO> GetMonthlyRevenueDataAsync();
-        Task<AudienceMetricsDTO> GetAudienceMetricsAsync(string filter);
-        Task<IEnumerable<SessionsByCountriesDTO>> GetSessionsByCountriesAsync(string filter);
-        Task<BalanceOverviewDTO> GetBalanceOverviewAsync(int year);
-        Task<IEnumerable<SalesByLocationsDTO>> GetSalesByLocationsAsync();
-        Task<IEnumerable<StoreVisitsBySourceDTO>> GetStoreVisitsBySourceAsync();
+        Task<ResponseModel> GetRevenueDataAsync(string filter);
+        Task<ResponseModel> GetMonthlyRevenueDataAsync();
+        Task<ResponseModel> GetAudienceMetricsAsync(string filter);
+        Task<ResponseModel> GetSessionsByCountriesAsync(string filter);
+        Task<ResponseModel> GetBalanceOverviewAsync(int year);
+        Task<ResponseModel> GetSalesByLocationsAsync();
+        Task<ResponseModel> GetStoreVisitsBySourceAsync();
     }
 }
