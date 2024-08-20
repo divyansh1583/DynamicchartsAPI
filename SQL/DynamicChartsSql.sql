@@ -8,7 +8,7 @@
 
     -- Create DCP_Country table with metadata columns
     CREATE TABLE DCP_Country (
-        CountryID INT PRIMARY KEY,
+        CountryID INT IDENTITY(1,1) PRIMARY KEY ,
         CountryName NVARCHAR(100),
         CreateDate DATETIME DEFAULT GETDATE(),
         IsDeleted BIT DEFAULT 0
@@ -16,7 +16,7 @@
 
     -- Create DCP_Source table with metadata columns
     CREATE TABLE DCP_Source (
-        SourceID INT PRIMARY KEY,
+        SourceID INT IDENTITY(1,1) PRIMARY KEY,
         SourceType NVARCHAR(100),
         CreateDate DATETIME DEFAULT GETDATE(),
         IsDeleted BIT DEFAULT 0
@@ -24,7 +24,7 @@
 
     -- Create DCP_Product table with metadata columns
     CREATE TABLE DCP_Product (
-        ProductID INT PRIMARY KEY,
+        ProductID INT IDENTITY(1,1) PRIMARY KEY,
         ProductName NVARCHAR(100),
         CostPrice DECIMAL(18, 2),
         SellingPrice DECIMAL(18, 2),
@@ -34,7 +34,7 @@
 
     -- Create DCP_Order table with metadata columns and foreign keys
     CREATE TABLE DCP_Order (
-        OrderID INT PRIMARY KEY,
+        OrderID INT IDENTITY(1,1) PRIMARY KEY,
         OrderDate DATETIME,
         ProductID INT FOREIGN KEY REFERENCES DCP_Product(ProductID),
         Quantity INT,
@@ -46,7 +46,7 @@
 
     -- Create DCP_Refund table with metadata columns and foreign keys
     CREATE TABLE DCP_Refund (
-        RefundID INT PRIMARY KEY,
+        RefundID INT IDENTITY(1,1) PRIMARY KEY,
         OrderID INT FOREIGN KEY REFERENCES DCP_Order(OrderID),
         RefundDate DATETIME,
         CreateDate DATETIME DEFAULT GETDATE(),
@@ -55,7 +55,7 @@
 
     -- Create DCP_Session table with metadata columns and foreign keys
     CREATE TABLE DCP_Session (
-        SessionID INT PRIMARY KEY,
+        SessionID INT IDENTITY(1,1) PRIMARY KEY         ,
         CountryID INT FOREIGN KEY REFERENCES DCP_Country(CountryID),
         StartDate DATETIME,
         EndDate DATETIME,
@@ -65,47 +65,46 @@
     );
 
     -- Insert Data into DCP_Country
-    INSERT INTO DCP_Country (CountryID, CountryName) VALUES 
-    (1, 'United States'),
-    (2, 'Canada'),
-    (3, 'United Kingdom'),
-    (4, 'Germany'),
-    (5, 'France'),
-    (6, 'Australia'),
-    (7, 'Italy'),
-    (8, 'Spain'),
-    (9, 'Netherlands'),
-    (10, 'Sweden');
+    INSERT INTO DCP_Country (CountryName) VALUES 
+    ('United States'),
+    ('Canada'),
+    ('United Kingdom'),
+    ('Germany'),
+    ('France'),
+    ('Australia'),
+    ('Italy'),
+    ('Spain'),
+    ('Netherlands'),
+    ('Sweden');
 
     -- Insert Data into DCP_Source
-    INSERT INTO DCP_Source (SourceID, SourceType) VALUES 
-    (1, 'Direct'),
-    (2, 'Social'),
-    (3, 'Email'),
-    (4, 'Referral'),
-    (5, 'Other');
+    INSERT INTO DCP_Source (SourceType) VALUES 
+    ('Direct'),
+    ('Social'),
+    ('Email'),
+    ('Referral'),
+    ('Other');
 
     -- Insert Data into DCP_Product
-    INSERT INTO DCP_Product (ProductID, ProductName, CostPrice, SellingPrice) VALUES 
-    (1, 'Smartphone', 200.00, 299.99),
-    (2, 'Laptop', 800.00, 1199.99),
-    (3, 'Headphones', 50.00, 79.99),
-    (4, 'Smartwatch', 100.00, 149.99),
-    (5, 'Tablet', 300.00, 449.99),
-    (6, 'Camera', 400.00, 599.99),
-    (7, 'Monitor', 150.00, 229.99),
-    (8, 'Keyboard', 30.00, 49.99),
-    (9, 'Mouse', 20.00, 29.99),
-    (10, 'Printer', 120.00, 179.99);
+    INSERT INTO DCP_Product (ProductName, CostPrice, SellingPrice) VALUES 
+    ('Smartphone', 200.00, 299.99),
+    ('Laptop', 800.00, 1199.99),
+    ('Headphones', 50.00, 79.99),
+    ('Smartwatch', 100.00, 149.99),
+    ('Tablet', 300.00, 449.99),
+    ('Camera', 400.00, 599.99),
+    ('Monitor', 150.00, 229.99),
+    ('Keyboard', 30.00, 49.99),
+    ('Mouse', 20.00, 29.99),
+    ('Printer', 120.00, 179.99);
 
     -- Insert Data into DCP_Order
     DECLARE @i INT = 1;
 
     WHILE @i <= 500
     BEGIN
-        INSERT INTO DCP_Order (OrderID, OrderDate, ProductID, Quantity, SourceID, CountryID, CreateDate, IsDeleted)
+        INSERT INTO DCP_Order (OrderDate, ProductID, Quantity, SourceID, CountryID, CreateDate, IsDeleted)
         VALUES (
-            @i,
             DATEADD(DAY, -ABS(CHECKSUM(NEWID()) % 365), GETDATE()),  -- Random past date within the last year
             (SELECT TOP 1 ProductID FROM DCP_Product ORDER BY NEWID()),  -- Random ProductID
             ABS(CHECKSUM(NEWID()) % 10) + 1,  -- Random Quantity between 1 and 10
@@ -123,9 +122,8 @@
 	WHILE @j <= 300
 	BEGIN
 	    DECLARE @StartDate DATETIME = DATEADD(DAY, -ABS(CHECKSUM(NEWID()) % 365), GETDATE());
-	    INSERT INTO DCP_Session (SessionID, CountryID, StartDate, EndDate, SessionCreateDate, CreateDate, IsDeleted)
+	    INSERT INTO DCP_Session (CountryID, StartDate, EndDate, SessionCreateDate, CreateDate, IsDeleted)
 	    VALUES (
-	        @j,
 	        (SELECT TOP 1 CountryID FROM DCP_Country ORDER BY NEWID()),  -- Random CountryID
 	        @StartDate,  -- Random past start date within the last year
 	        DATEADD(MINUTE, ABS(CHECKSUM(NEWID()) % 120), @StartDate),  -- Random end date within 2 hours of start date
@@ -141,9 +139,8 @@
 
     WHILE @k <= 30
     BEGIN
-        INSERT INTO DCP_Refund (RefundID, OrderID, RefundDate, CreateDate, IsDeleted)
+        INSERT INTO DCP_Refund (OrderID, RefundDate, CreateDate, IsDeleted)
         VALUES (
-            @k,
             (SELECT TOP 1 OrderID FROM DCP_Order ORDER BY NEWID()),  -- Random OrderID
             DATEADD(DAY, ABS(CHECKSUM(NEWID()) % 14) + 1,  -- Random future date within 1 to 14 days after OrderDate
                 (SELECT OrderDate FROM DCP_Order WHERE OrderID = (SELECT TOP 1 OrderID FROM DCP_Order ORDER BY NEWID()))),
@@ -153,7 +150,7 @@
         SET @k = @k + 1;
     END;
 
-
+	USE sDirect
     -- Select all records from DCP_Country
     SELECT * FROM DCP_Country;
 
@@ -465,3 +462,46 @@
 	END
 	
 	EXEC usp_GetStoreVisitsBySource
+
+-----------------------------------------------------------------------------------------
+use sDirect
+
+CREATE OR ALTER PROCEDURE AddProduct
+	@ProductID INT,
+    @OrderDate DATETIME,
+    @Quantity INT,
+    @SourceID INT,
+    @CountryID INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+    
+    DECLARE @OrderID INT;
+
+    BEGIN TRANSACTION;
+
+    BEGIN TRY
+
+        -- Insert the order
+        INSERT INTO DCP_Order (OrderDate, ProductID, Quantity, SourceID, CountryID)
+        VALUES (@OrderDate, @ProductID, @Quantity, @SourceID, @CountryID);
+
+		 -- Get the new OrderID
+        SET @OrderID = SCOPE_IDENTITY();
+        COMMIT TRANSACTION;
+
+        -- Return the new IDs
+        SELECT @ProductID AS NewProductID, @OrderID AS NewOrderID;
+    END TRY
+    BEGIN CATCH
+        ROLLBACK TRANSACTION;
+        THROW;
+    END CATCH;
+END
+
+EXEC AddProduct
+    @ProductID = 1,
+    @OrderDate = '2024-08-20 14:30:00',
+    @Quantity = 2,
+    @SourceID = 2,
+    @CountryID = 1;
