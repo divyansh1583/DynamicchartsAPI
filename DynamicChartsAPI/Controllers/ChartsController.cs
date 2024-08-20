@@ -74,5 +74,10 @@ namespace DynamicChartsAPI.Controllers
             }
             return StatusCode(result.StatusCode, result);
         }
+        [HttpGet("throw-error")]
+        public IActionResult ThrowError()
+        {
+            throw new Exception("This is a test error");
+        }
     }
 }

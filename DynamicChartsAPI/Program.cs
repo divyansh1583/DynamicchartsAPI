@@ -4,6 +4,7 @@ using DynamicChartsAPI.Infrastructure.Repositories;
 using DynamicChartsAPI.Infrastructure.Services;
 using DynamicChartsAPI.Infrastructure.Data;
 using Microsoft.OpenApi.Models;
+using DynamicChartsAPI.Middlewares;
 
 namespace DynamicChartsAPI
 {
@@ -52,6 +53,9 @@ namespace DynamicChartsAPI
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Dynamic Charts API v1"));
             }
+
+            // Use error logging middleware
+            app.UseMiddleware<ErrorLoggingMiddleware>();
 
             app.UseHttpsRedirection();
 

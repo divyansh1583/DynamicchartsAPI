@@ -505,3 +505,14 @@ EXEC AddProduct
     @Quantity = 2,
     @SourceID = 2,
     @CountryID = 1;
+
+CREATE TABLE ErrorLogs (
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    Timestamp DATETIME2 NOT NULL,
+    Message NVARCHAR(MAX) NOT NULL,
+    StackTrace NVARCHAR(MAX) NULL,
+    RequestPath NVARCHAR(255) NOT NULL,
+    RequestMethod NVARCHAR(10) NOT NULL
+)
+
+select * from ErrorLogs
