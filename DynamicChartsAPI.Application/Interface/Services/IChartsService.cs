@@ -17,5 +17,6 @@ namespace DynamicChartsAPI.Application.Interface.Services
         Task<ResponseModel> GetBalanceOverviewAsync(int year);
         Task<ResponseModel> GetSalesByLocationsAsync();
         Task<ResponseModel> GetStoreVisitsBySourceAsync();
+        Task<ResponseModel> AddOrderAsync(AddOrderDTO orderDto);
     }
 }

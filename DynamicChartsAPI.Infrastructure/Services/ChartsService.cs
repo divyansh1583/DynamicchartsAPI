@@ -77,5 +77,30 @@ namespace DynamicChartsAPI.Infrastructure.Services
             var result = await _chartsRepository.GetStoreVisitsBySourceAsync();
             return new ResponseModel { StatusCode = 200, Data = result };
         }
+        public async Task<ResponseModel> AddOrderAsync(AddOrderDTO orderDto)
+        {
+            try
+            {
+                var (newProductId, newOrderId) = await _chartsRepository.AddOrderAsync(
+                    orderDto.ProductId,
+                    orderDto.OrderDate,
+                    orderDto.Quantity,
+                    orderDto.SourceId,
+                    orderDto.CountryId
+                );
+
+                var result = new
+                {
+                    NewProductId = newProductId,
+                    NewOrderId = newOrderId
+                };
+
+                return new ResponseModel { StatusCode = 200, Data = result };
+            }
+            catch (Exception ex)
+            {
+                return new ResponseModel { StatusCode = 500, Message = $"An error occurred while adding the order: {ex.Message}" };
+            }
+        }
     }
 }

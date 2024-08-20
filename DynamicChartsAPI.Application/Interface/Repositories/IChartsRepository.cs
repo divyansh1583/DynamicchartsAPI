@@ -16,5 +16,6 @@ namespace DynamicChartsAPI.Application.Interface.Repositories
         Task<BalanceOverviewDTO> GetBalanceOverviewAsync(int year);
         Task<IEnumerable<SalesByLocationsDTO>> GetSalesByLocationsAsync();
         Task<IEnumerable<StoreVisitsBySourceDTO>> GetStoreVisitsBySourceAsync();
+        Task<(int NewProductId, int NewOrderId)> AddOrderAsync(int productId, DateTime orderDate, int quantity, int sourceId, int countryId);
     }
 }

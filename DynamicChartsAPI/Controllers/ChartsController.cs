@@ -64,5 +64,15 @@ namespace DynamicChartsAPI.Controllers
             var result = await _chartsService.GetStoreVisitsBySourceAsync();
             return Ok(result);
         }
+        [HttpPost("add-order")]
+        public async Task<ActionResult<ResponseModel>> AddOrder([FromBody] AddOrderDTO orderDto)
+        {
+            var result = await _chartsService.AddOrderAsync(orderDto);
+            if (result.StatusCode == 200)
+            {
+                return Ok(result);
+            }
+            return StatusCode(result.StatusCode, result);
+        }
     }
 }
