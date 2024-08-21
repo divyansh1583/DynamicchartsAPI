@@ -31,7 +31,7 @@ namespace DynamicChartsAPI.Infrastructure.Repositories
             using var connection = new SqlConnection(_connectionString);
             const string sql = "SELECT * FROM DgAdmin WHERE Email = @Email";
 
-            return await connection.QuerySingleOrDefaultAsync<DgAdmin>(sql, new { Email = email });
+            return await connection.QueryFirstOrDefaultAsync<DgAdmin>(sql, new { Email = email });
         }
     }
 }
