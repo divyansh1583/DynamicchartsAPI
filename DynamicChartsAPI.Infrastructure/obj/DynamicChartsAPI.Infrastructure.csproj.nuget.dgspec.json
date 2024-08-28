@@ -11,7 +11,7 @@
         "projectName": "DynamicChartsAPI.Application",
         "projectPath": "C:\\Users\\divyansh.chauhan\\Desktop\\DC\\Angular+.NET+MSSQL\\Angular17\\DynamicChartsApp\\DynamicchartsAPI\\DynamicChartsAPI.Application\\DynamicChartsAPI.Application.csproj",
         "packagesPath": "C:\\Users\\divyansh.chauhan\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\divyansh.chauhan\\Desktop\\DC\\Angular+.NET+MSSQL\\Angular17\\DynamicChartsApp\\DynamicchartsAPI\\DynamicChartsAPI.Application\\obj\\",
+        "outputPath": "C:\\Users\\divyansh.chauhan\\Desktop\\DC\\Angular+.NET+MSSQL\\Angular17\\DynamicChartsApp\\DynamicChartsAPI\\DynamicChartsAPI.Application\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -80,7 +80,7 @@
         "projectName": "DynamicChartsAPI.Domain",
         "projectPath": "C:\\Users\\divyansh.chauhan\\Desktop\\DC\\Angular+.NET+MSSQL\\Angular17\\DynamicChartsApp\\DynamicchartsAPI\\DynamicChartsAPI.Domain\\DynamicChartsAPI.Domain.csproj",
         "packagesPath": "C:\\Users\\divyansh.chauhan\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\divyansh.chauhan\\Desktop\\DC\\Angular+.NET+MSSQL\\Angular17\\DynamicChartsApp\\DynamicchartsAPI\\DynamicChartsAPI.Domain\\obj\\",
+        "outputPath": "C:\\Users\\divyansh.chauhan\\Desktop\\DC\\Angular+.NET+MSSQL\\Angular17\\DynamicChartsApp\\DynamicChartsAPI\\DynamicChartsAPI.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -157,7 +157,7 @@
         "projectName": "DynamicChartsAPI.Infrastructure",
         "projectPath": "C:\\Users\\divyansh.chauhan\\Desktop\\DC\\Angular+.NET+MSSQL\\Angular17\\DynamicChartsApp\\DynamicchartsAPI\\DynamicChartsAPI.Infrastructure\\DynamicChartsAPI.Infrastructure.csproj",
         "packagesPath": "C:\\Users\\divyansh.chauhan\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\divyansh.chauhan\\Desktop\\DC\\Angular+.NET+MSSQL\\Angular17\\DynamicChartsApp\\DynamicchartsAPI\\DynamicChartsAPI.Infrastructure\\obj\\",
+        "outputPath": "C:\\Users\\divyansh.chauhan\\Desktop\\DC\\Angular+.NET+MSSQL\\Angular17\\DynamicChartsApp\\DynamicChartsAPI\\DynamicChartsAPI.Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

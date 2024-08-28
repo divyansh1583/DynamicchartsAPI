@@ -290,3 +290,5 @@ D:\Dynamic charts\API\DynamicchartsAPI\DynamicChartsAPI\obj\Debug\net8.0\refint\
 D:\Dynamic charts\API\DynamicchartsAPI\DynamicChartsAPI\obj\Debug\net8.0\DynamicChartsAPI.pdb
 D:\Dynamic charts\API\DynamicchartsAPI\DynamicChartsAPI\obj\Debug\net8.0\DynamicChartsAPI.genruntimeconfig.cache
 D:\Dynamic charts\API\DynamicchartsAPI\DynamicChartsAPI\obj\Debug\net8.0\ref\DynamicChartsAPI.dll
+C:\Users\divyansh.chauhan\Desktop\DC\Angular+.NET+MSSQL\Angular17\DynamicChartsApp\DynamicchartsAPI\DynamicChartsAPI\bin\Debug\net8.0\Castle.Core.dll
+C:\Users\divyansh.chauhan\Desktop\DC\Angular+.NET+MSSQL\Angular17\DynamicChartsApp\DynamicchartsAPI\DynamicChartsAPI\bin\Debug\net8.0\Moq.dll
